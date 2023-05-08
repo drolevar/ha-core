@@ -837,11 +837,11 @@ async def test_scene_script(hass: HomeAssistant) -> None:
 async def test_temperature_setting_climate_onoff(hass: HomeAssistant) -> None:
     """Test TemperatureSetting trait support for climate domain - range."""
     assert helpers.get_google_type(climate.DOMAIN, None) is not None
-    assert trait.TemperatureSettingTrait.supported(climate.DOMAIN, 0, None, None)
+    assert trait.TemperatureSettingTraitClimate.supported(climate.DOMAIN, 0, None, None)
 
     hass.config.units.temperature_unit = UnitOfTemperature.FAHRENHEIT
 
-    trt = trait.TemperatureSettingTrait(
+    trt = trait.TemperatureSettingTraitClimate(
         hass,
         State(
             "climate.bla",
@@ -882,11 +882,11 @@ async def test_temperature_setting_climate_onoff(hass: HomeAssistant) -> None:
 async def test_temperature_setting_climate_no_modes(hass: HomeAssistant) -> None:
     """Test TemperatureSetting trait support for climate domain not supporting any modes."""
     assert helpers.get_google_type(climate.DOMAIN, None) is not None
-    assert trait.TemperatureSettingTrait.supported(climate.DOMAIN, 0, None, None)
+    assert trait.TemperatureSettingTraitClimate.supported(climate.DOMAIN, 0, None, None)
 
     hass.config.units.temperature_unit = UnitOfTemperature.CELSIUS
 
-    trt = trait.TemperatureSettingTrait(
+    trt = trait.TemperatureSettingTraitClimate(
         hass,
         State(
             "climate.bla",
@@ -908,11 +908,11 @@ async def test_temperature_setting_climate_no_modes(hass: HomeAssistant) -> None
 async def test_temperature_setting_climate_range(hass: HomeAssistant) -> None:
     """Test TemperatureSetting trait support for climate domain - range."""
     assert helpers.get_google_type(climate.DOMAIN, None) is not None
-    assert trait.TemperatureSettingTrait.supported(climate.DOMAIN, 0, None, None)
+    assert trait.TemperatureSettingTraitClimate.supported(climate.DOMAIN, 0, None, None)
 
     hass.config.units.temperature_unit = UnitOfTemperature.FAHRENHEIT
 
-    trt = trait.TemperatureSettingTrait(
+    trt = trait.TemperatureSettingTraitClimate(
         hass,
         State(
             "climate.bla",
@@ -990,11 +990,11 @@ async def test_temperature_setting_climate_range(hass: HomeAssistant) -> None:
 async def test_temperature_setting_climate_setpoint(hass: HomeAssistant) -> None:
     """Test TemperatureSetting trait support for climate domain - setpoint."""
     assert helpers.get_google_type(climate.DOMAIN, None) is not None
-    assert trait.TemperatureSettingTrait.supported(climate.DOMAIN, 0, None, None)
+    assert trait.TemperatureSettingTraitClimate.supported(climate.DOMAIN, 0, None, None)
 
     hass.config.units.temperature_unit = UnitOfTemperature.CELSIUS
 
-    trt = trait.TemperatureSettingTrait(
+    trt = trait.TemperatureSettingTraitClimate(
         hass,
         State(
             "climate.bla",
@@ -1048,7 +1048,7 @@ async def test_temperature_setting_climate_setpoint_auto(hass: HomeAssistant) ->
     """
     hass.config.units.temperature_unit = UnitOfTemperature.CELSIUS
 
-    trt = trait.TemperatureSettingTrait(
+    trt = trait.TemperatureSettingTraitClimate(
         hass,
         State(
             "climate.bla",
@@ -2950,6 +2950,62 @@ async def test_temperature_control_sensor_data(
         assert trt.query_attributes() == {
             "temperatureAmbientCelsius": ambient,
             "temperatureSetpointCelsius": ambient,
+        }
+    else:
+        assert trt.query_attributes() == {}
+    hass.config.units.temperature_unit = UnitOfTemperature.CELSIUS
+
+
+async def test_temperature_setting_sensor(hass: HomeAssistant) -> None:
+    """Test TemperatureSetting trait support for temperature sensor."""
+    assert (
+        helpers.get_google_type(sensor.DOMAIN, sensor.SensorDeviceClass.TEMPERATURE)
+        is not None
+    )
+    assert not trait.TemperatureSettingTraitSensor.supported(
+        sensor.DOMAIN, 0, sensor.SensorDeviceClass.HUMIDITY, None
+    )
+    assert trait.TemperatureSettingTraitSensor.supported(
+        sensor.DOMAIN, 0, sensor.SensorDeviceClass.TEMPERATURE, None
+    )
+
+
+@pytest.mark.parametrize(
+    ("unit_in", "unit_out", "state", "ambient"),
+    [
+        (UnitOfTemperature.FAHRENHEIT, "F", "70", 21.1),
+        (UnitOfTemperature.CELSIUS, "C", "21.1", 21.1),
+        (UnitOfTemperature.FAHRENHEIT, "F", "unavailable", None),
+        (UnitOfTemperature.FAHRENHEIT, "F", "unknown", None),
+    ],
+)
+async def test_temperature_setting_sensor_data(
+    hass: HomeAssistant, unit_in, unit_out, state, ambient
+) -> None:
+    """Test TemperatureControl trait support for temperature sensor."""
+    hass.config.units.temperature_unit = unit_in
+
+    trt = trait.TemperatureSettingTraitSensor(
+        hass,
+        State(
+            "sensor.test",
+            state,
+            {ATTR_DEVICE_CLASS: sensor.SensorDeviceClass.TEMPERATURE},
+        ),
+        BASIC_CONFIG,
+    )
+
+    assert trt.sync_attributes() == {
+        "availableThermostatModes": [ "off" ],
+        "thermostatTemperatureUnit": unit_out,
+        "queryOnlyTemperatureSetting": True,
+        "temperatureRange": {"maxThresholdCelsius": 100, "minThresholdCelsius": -100},
+    }
+
+    if ambient:
+        assert trt.query_attributes() == {
+            "thermostatTemperatureAmbient": ambient,
+            "thermostatTemperatureSetpoint": ambient,
         }
     else:
         assert trt.query_attributes() == {}

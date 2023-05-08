@@ -859,9 +859,62 @@ class TemperatureControlTrait(_Trait):
         """Unsupported."""
         raise SmartHomeError(ERR_NOT_SUPPORTED, "Execute is not supported by sensor")
 
+@register_trait
+class TemperatureSettingTraitSensor(_Trait):
+    """Trait for devices (other than thermostats) that support controlling temperature.
+    Workaround for Temperature sensors. Required for display in Google Home and Google Nest Hub.
+
+    https://developers.google.com/assistant/smarthome/traits/temperaturesetting
+    """
+
+    name = TRAIT_TEMPERATURE_SETTING
+
+    @staticmethod
+    def supported(domain, features, device_class, _):
+        """Test if state is supported."""
+        return (
+            domain == sensor.DOMAIN
+            and device_class == sensor.SensorDeviceClass.TEMPERATURE
+        )
+
+    def sync_attributes(self):
+        """Return temperature attributes for a sync request."""
+        return {
+            "availableThermostatModes": [ "off" ],
+            "thermostatTemperatureUnit": _google_temp_unit(
+                self.hass.config.units.temperature_unit
+            ),
+            "queryOnlyTemperatureSetting": True,
+            "thermostatTemperatureRange": {
+                "minThresholdCelsius": -100,
+                "maxThresholdCelsius": 100,
+            },
+        }
+
+    def query_attributes(self):
+        """Return temperature states."""
+        response = {}
+        unit = self.hass.config.units.temperature_unit
+        current_temp = self.state.state
+        if current_temp not in (STATE_UNKNOWN, STATE_UNAVAILABLE):
+            temp = round(
+                TemperatureConverter.convert(
+                    float(current_temp), unit, UnitOfTemperature.CELSIUS
+                ),
+                1,
+            )
+            response["thermostatTemperatureSetpoint"] = temp
+            response["thermostatTemperatureAmbient"] = temp
+
+        return response
+
+    async def execute(self, command, data, params, challenge):
+        """Unsupported."""
+        raise SmartHomeError(ERR_NOT_SUPPORTED, "Execute is not supported by sensor")
+
 
 @register_trait
-class TemperatureSettingTrait(_Trait):
+class TemperatureSettingTraitClimate(_Trait):
     """Trait to offer handling both temperature point and modes functionality.
 
     https://developers.home.google.com/cloud-to-cloud/traits/temperaturesetting
