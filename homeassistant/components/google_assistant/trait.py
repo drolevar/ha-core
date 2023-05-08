@@ -233,7 +233,7 @@ class _Trait:
 class BrightnessTrait(_Trait):
     """Trait to control brightness of a device.
 
-    https://developers.google.com/actions/smarthome/traits/brightness
+    https://developers.home.google.com/cloud-to-cloud/traits/brightness
     """
 
     name = TRAIT_BRIGHTNESS
@@ -283,7 +283,7 @@ class BrightnessTrait(_Trait):
 class CameraStreamTrait(_Trait):
     """Trait to stream from cameras.
 
-    https://developers.google.com/actions/smarthome/traits/camerastream
+    https://developers.home.google.com/cloud-to-cloud/traits/camerastream
     """
 
     name = TRAIT_CAMERA_STREAM
@@ -324,7 +324,7 @@ class CameraStreamTrait(_Trait):
 class OnOffTrait(_Trait):
     """Trait to offer basic on and off functionality.
 
-    https://developers.google.com/actions/smarthome/traits/onoff
+    https://developers.home.google.com/cloud-to-cloud/traits/onoff
     """
 
     name = TRAIT_ONOFF
@@ -376,7 +376,7 @@ class OnOffTrait(_Trait):
 class ColorSettingTrait(_Trait):
     """Trait to offer color temperature functionality.
 
-    https://developers.google.com/actions/smarthome/traits/colortemperature
+    https://developers.home.google.com/cloud-to-cloud/traits/colortemperature
     """
 
     name = TRAIT_COLOR_SETTING
@@ -513,7 +513,7 @@ class ColorSettingTrait(_Trait):
 class SceneTrait(_Trait):
     """Trait to offer scene functionality.
 
-    https://developers.google.com/actions/smarthome/traits/scene
+    https://developers.home.google.com/cloud-to-cloud/traits/scene
     """
 
     name = TRAIT_SCENE
@@ -562,7 +562,7 @@ class SceneTrait(_Trait):
 class DockTrait(_Trait):
     """Trait to offer dock functionality.
 
-    https://developers.google.com/actions/smarthome/traits/dock
+    https://developers.home.google.com/cloud-to-cloud/traits/dock
     """
 
     name = TRAIT_DOCK
@@ -596,7 +596,7 @@ class DockTrait(_Trait):
 class LocatorTrait(_Trait):
     """Trait to offer locate functionality.
 
-    https://developers.google.com/actions/smarthome/traits/locator
+    https://developers.home.google.com/cloud-to-cloud/traits/locator
     """
 
     name = TRAIT_LOCATOR
@@ -636,7 +636,7 @@ class LocatorTrait(_Trait):
 class EnergyStorageTrait(_Trait):
     """Trait to offer EnergyStorage functionality.
 
-    https://developers.google.com/actions/smarthome/traits/energystorage
+    https://developers.home.google.com/cloud-to-cloud/traits/energystorage
     """
 
     name = TRAIT_ENERGYSTORAGE
@@ -691,7 +691,7 @@ class EnergyStorageTrait(_Trait):
 class StartStopTrait(_Trait):
     """Trait to offer StartStop functionality.
 
-    https://developers.google.com/actions/smarthome/traits/startstop
+    https://developers.home.google.com/cloud-to-cloud/traits/startstop
     """
 
     name = TRAIT_STARTSTOP
@@ -812,7 +812,7 @@ class StartStopTrait(_Trait):
 class TemperatureControlTrait(_Trait):
     """Trait for devices (other than thermostats) that support controlling temperature. Workaround for Temperature sensors.
 
-    https://developers.google.com/assistant/smarthome/traits/temperaturecontrol
+    https://developers.home.google.com/cloud-to-cloud/traits/temperaturecontrol
     """
 
     name = TRAIT_TEMPERATURE_CONTROL
@@ -864,7 +864,7 @@ class TemperatureControlTrait(_Trait):
 class TemperatureSettingTrait(_Trait):
     """Trait to offer handling both temperature point and modes functionality.
 
-    https://developers.google.com/actions/smarthome/traits/temperaturesetting
+    https://developers.home.google.com/cloud-to-cloud/traits/temperaturesetting
     """
 
     name = TRAIT_TEMPERATURE_SETTING
@@ -1136,7 +1136,7 @@ class TemperatureSettingTrait(_Trait):
 class HumiditySettingTrait(_Trait):
     """Trait to offer humidity setting functionality.
 
-    https://developers.google.com/actions/smarthome/traits/humiditysetting
+    https://developers.home.google.com/cloud-to-cloud/traits/humiditysetting
     """
 
     name = TRAIT_HUMIDITY_SETTING
@@ -1220,7 +1220,7 @@ class HumiditySettingTrait(_Trait):
 class LockUnlockTrait(_Trait):
     """Trait to lock or unlock a lock.
 
-    https://developers.google.com/actions/smarthome/traits/lockunlock
+    https://developers.home.google.com/cloud-to-cloud/traits/lockunlock
     """
 
     name = TRAIT_LOCKUNLOCK
@@ -1269,7 +1269,7 @@ class LockUnlockTrait(_Trait):
 class ArmDisArmTrait(_Trait):
     """Trait to Arm or Disarm a Security System.
 
-    https://developers.google.com/actions/smarthome/traits/armdisarm
+    https://developers.home.google.com/cloud-to-cloud/traits/armdisarm
     """
 
     name = TRAIT_ARMDISARM
@@ -1403,7 +1403,7 @@ def _get_fan_speed(speed_name: str) -> dict[str, Any]:
 class FanSpeedTrait(_Trait):
     """Trait to control speed of Fan.
 
-    https://developers.google.com/actions/smarthome/traits/fanspeed
+    https://developers.home.google.com/cloud-to-cloud/traits/fanspeed
     """
 
     name = TRAIT_FANSPEED
@@ -1562,7 +1562,7 @@ class FanSpeedTrait(_Trait):
 class ModesTrait(_Trait):
     """Trait to set modes.
 
-    https://developers.google.com/actions/smarthome/traits/modes
+    https://developers.home.google.com/cloud-to-cloud/traits/modes
     """
 
     name = TRAIT_MODES
@@ -1841,7 +1841,7 @@ class InputSelectorTrait(_Trait):
 class OpenCloseTrait(_Trait):
     """Trait to open and close a cover.
 
-    https://developers.google.com/actions/smarthome/traits/openclose
+    https://developers.home.google.com/cloud-to-cloud/traits/openclose
     """
 
     # Cover device classes that require 2FA
@@ -1988,7 +1988,7 @@ class OpenCloseTrait(_Trait):
 class VolumeTrait(_Trait):
     """Trait to control volume of a device.
 
-    https://developers.google.com/actions/smarthome/traits/volume
+    https://developers.home.google.com/cloud-to-cloud/traits/volume
     """
 
     name = TRAIT_VOLUME
@@ -2157,7 +2157,7 @@ MEDIA_COMMAND_ATTRIBUTES = {
 class TransportControlTrait(_Trait):
     """Trait to control media playback.
 
-    https://developers.google.com/actions/smarthome/traits/transportcontrol
+    https://developers.home.google.com/cloud-to-cloud/traits/transportcontrol
     """
 
     name = TRAIT_TRANSPORT_CONTROL
@@ -2263,7 +2263,7 @@ class TransportControlTrait(_Trait):
 class MediaStateTrait(_Trait):
     """Trait to get media playback state.
 
-    https://developers.google.com/actions/smarthome/traits/mediastate
+    https://developers.home.google.com/cloud-to-cloud/traits/mediastate
     """
 
     name = TRAIT_MEDIA_STATE
@@ -2312,7 +2312,7 @@ class MediaStateTrait(_Trait):
 class ChannelTrait(_Trait):
     """Trait to get media playback state.
 
-    https://developers.google.com/actions/smarthome/traits/channel
+    https://developers.home.google.com/cloud-to-cloud/traits/channel
     """
 
     name = TRAIT_CHANNEL
@@ -2368,7 +2368,7 @@ class ChannelTrait(_Trait):
 class SensorStateTrait(_Trait):
     """Trait to get sensor state.
 
-    https://developers.google.com/actions/smarthome/traits/sensorstate
+    https://developers.home.google.com/cloud-to-cloud/traits/sensorstate
     """
 
     sensor_types = {
